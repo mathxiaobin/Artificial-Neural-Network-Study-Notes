@@ -5,16 +5,16 @@ layer {
   top: "data"
   top: "label"
   include {
-    phase: TRAIN
+    phase: TRAIN　　/***********************指明在训练阶段才会用到******************************/
   }
   transform_param {
-    mirror: true
-    crop_size: 227
+    mirror: true　/*************1表示开启镜像，0表示关闭镜像，也用ｔｕｒｅ和ｆａｌｓｅ表示（啥是镜像？？）*************/
+    crop_size: 227　/***********裁剪一个２２７＊２２７的图块，训练阶段随机剪，测试阶段从中间剪******************/
     mean_file: "data/ilsvrc12/imagenet_mean.binaryproto"
   }
   data_param {
     source: "examples/imagenet/ilsvrc12_train_lmdb"
-    batch_size: 256
+    batch_size: 256 /********************每２５６个图作为一个ｂａｔｃｈ，进行批量处理************************/
     backend: LMDB
   }
 }
@@ -44,7 +44,7 @@ layer {
   top: "conv1"
   param {
     lr_mult: 1
-    decay_mult: 1
+    decay_mult: 1 /****************************学习率的衰减系数*********************************/
   }
   param {
     lr_mult: 2
