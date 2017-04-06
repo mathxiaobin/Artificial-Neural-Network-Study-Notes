@@ -5,26 +5,27 @@ layer {
   top: "data"
   input_param { shape: { dim: 64 dim: 1 dim: 28 dim: 28 } }
 }
+64*1*28*28　意味着６４张图．每一张图１个信道，即黑白图片．每一张图像的尺度为２８＊２８
 layer {
   name: "conv1"
   type: "Convolution"
   bottom: "data"
   top: "conv1"
   param {
-    lr_mult: 1
+    lr_mult: 1 /*****************卷积核参数的学习率**************************/
   }
   param {
-    lr_mult: 2
+    lr_mult: 2 /*****************偏置项的学习率**************************/
   }
   convolution_param {
-    num_output: 20
-    kernel_size: 5
-    stride: 1
+    num_output: 20　/*******************输出的个数，在这个模型中，它代表卷积层的卷积核个数***********************/
+    kernel_size: 5　/******************卷积核的尺度的大小，此处为５＊５，但是实际上应该是ｎｕｍ＿ｃｈａｎｎｅｌ＊５＊５************************/
+    stride: 1　/*******************卷积的步长***********************/
     weight_filler {
-      type: "xavier"
+      type: "xavier"　/******************卷积核参数的初始化类型，除此之外还有别的初始化类型************************/
     }
     bias_filler {
-      type: "constant"
+      type: "constant"　　/*****************偏置项的初始化类型*************************/
     }
   }
 }
@@ -34,9 +35,9 @@ layer {
   bottom: "conv1"
   top: "pool1"
   pooling_param {
-    pool: MAX
-    kernel_size: 2
-    stride: 2
+    pool: MAX　　/*******************池化类型：最大值池化***********************/
+    kernel_size: 2　　/*******************池化尺度***********************/
+    stride: 2　　/*****************池化步长*************************/
   }
 }
 layer {
@@ -51,7 +52,7 @@ layer {
     lr_mult: 2
   }
   convolution_param {
-    num_output: 50
+    num_output: 50　　/*******************输出的个数，在这个模型中，它代表卷积层的卷积核个数***********************/
     kernel_size: 5
     stride: 1
     weight_filler {
@@ -123,7 +124,7 @@ layer {
 }
 layer {
   name: "prob"
-  type: "Softmax"
+  type: "Softmax"　/****详细解释参见：＂http://ufldl.stanford.edu/wiki/index.php/Softmax%E5%9B%9E%E5%BD%92＂*****/
   bottom: "ip2"
   top: "prob"
 }
