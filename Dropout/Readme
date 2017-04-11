@@ -1,0 +1,2 @@
+Dropout第一次遇到是在AlexNet里，神经网络运用了这个技术可以防止过拟合。
+http://blog.csdn.net/stdcoutzyx/article/details/49022443上面的文章有助于理解。
