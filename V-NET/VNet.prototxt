@@ -48,6 +48,7 @@ layer {
   }
 }
 # data preprocessing
+#这一层貌似没啥用，可以删掉。
 layer {
   # Use Power layer in deploy phase for input scaling
   name: "shift"
@@ -91,6 +92,8 @@ layer {
 
 layer {
   name: "split1_1"
+  #The Split layer is a utility layer that splits an input blob to multiple output blobs. This is used when a blob is fed into multiple output layers.
+  #split：将blob复制几份，分别给不同的layer，这些上层layer共享这个blob
   type: "Split"
   bottom: "data"
   top: "t1_1"
@@ -130,6 +133,7 @@ layer {
   bottom: "t1_15"
   bottom: "t1_16"
   top: "tiled1_1"
+  #concat：在某个维度，将输入的layer组合起来，是slice的逆过程
   type: "Concat"
   concat_param {
     axis: 1
@@ -138,6 +142,7 @@ layer {
 
 layer {
   name: "addLayer1_1"
+  #eltwise：将几个同样大小的layer，合并为1个，合并方法可以是相加、相乘、取最大。
   type: "Eltwise"
   bottom: "conv_in128_chan16"
   bottom: "tiled1_1"
